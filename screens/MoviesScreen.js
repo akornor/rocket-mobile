@@ -155,7 +155,7 @@ class Movies extends Component {
           </Swiper>
           <View>
             <View style={styles.listHeading}>
-              <Text style={styles.listHeadingLeft}>Popular</Text>
+              <Text style={styles.listHeadingLeft}>In Theatres</Text>
               <TouchableOpacity>
                 <Text
                   style={styles.listHeadingRight}
@@ -170,7 +170,7 @@ class Movies extends Component {
               </TouchableOpacity>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {popularMovies.results.map(info =>
+              {nowPlayingMovies.results.map(info =>
                 <CardTwo
                   key={info.id}
                   info={info}
@@ -178,6 +178,8 @@ class Movies extends Component {
                 />
               )}
             </ScrollView>
+
+
 
             <View style={styles.browseList}>
               <TouchableOpacity

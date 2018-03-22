@@ -2,7 +2,7 @@
 
 import { createRouter } from '@expo/ex-navigation';
 
-import BlankScreen from '../screens/BlankScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import DrawerNavigationScreen from '../screens/DrawerNavigationScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MovieScreen from '../screens/MovieScreen';
@@ -13,7 +13,7 @@ import TabNavigationScreen from '../screens/TabNavigationScreen';
 
 export default createRouter(
   () => ({
-    blank: () => BlankScreen,
+    profile: () => ProfileScreen,
     drawerNavigation: () => DrawerNavigationScreen,
     modal: () => ModalScreen,
     movie: () => MovieScreen,

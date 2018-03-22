@@ -27,14 +27,20 @@ export default class TabNavigationScreen extends React.Component {
           initialTab="movies">
           <TabNavigationItem
             id="movies"
-            renderIcon={isSelected => this._renderIcon('Movies', 'ios-film-outline', 'ios-film', isSelected)}>
+            renderIcon={isSelected => this._renderIcon('Home', 'ios-home-outline', 'ios-home', isSelected)}>
             <StackNavigation defaultRouteConfig={defaultRouteConfig} initialRoute="movies" />
           </TabNavigationItem>
 
           <TabNavigationItem
-            id="tv-shows"
-            renderIcon={isSelected => this._renderIcon('Profile', 'ios-desktop-outline', 'ios-desktop', isSelected)}>
-            <StackNavigation defaultRouteConfig={defaultRouteConfig}  initialRoute="blank" />
+            id="ticket"
+            renderIcon={isSelected => this._renderIcon('Tickets', 'ios-barcode-outline', 'ios-barcode', isSelected)}>
+            <StackNavigation defaultRouteConfig={defaultRouteConfig} initialRoute="profile" />
+          </TabNavigationItem>
+
+          <TabNavigationItem
+            id="profile"
+            renderIcon={isSelected => this._renderIcon('Profile', 'ios-person-outline', 'ios-person', isSelected)}>
+            <StackNavigation defaultRouteConfig={defaultRouteConfig}  initialRoute="profile" />
           </TabNavigationItem>
         </TabNavigation>
 
