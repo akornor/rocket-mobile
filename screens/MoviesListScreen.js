@@ -62,7 +62,7 @@ class MoviesList extends Component {
     if (isRefreshed && this.setState({ isRefreshing: false }));
   }
 
-  _retrieveNextPage(type) {
+  async _retrieveNextPage(type) {
     if (this.state.currentPage !== this.props.list.total_pages) {
       this.setState({
         currentPage: this.state.currentPage + 1
@@ -75,20 +75,19 @@ class MoviesList extends Component {
       } else {
         page = this.state.currentPage + 1;
       }
-
-      axios.get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`)
-        .then(res => {
+      try{
+          let res = await axios.get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`)
           const data = this.state.list.results;
           const newData = res.data.results;
 
           newData.map((item, index) => data.push(item));
 
           this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.list.results)
-          });
-        }).catch(err => {
-          console.log('next page', err); // eslint-disable-line
-        });
+              dataSource: this.state.dataSource.cloneWithRows(this.state.list.results)
+            });
+      }catch(error){
+        console.log('next page', err); // eslint-disable-line
+      }          
     }
   }
 
