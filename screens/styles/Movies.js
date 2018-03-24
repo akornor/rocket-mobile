@@ -3,6 +3,11 @@ import { Platform, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
+    // ...Platform.select({
+    //   ios: {
+    //     paddingTop: 60
+    //   }
+    // })
   },
   progressBar: {
     backgroundColor: '#0a0a0a',
@@ -34,11 +39,21 @@ const styles = StyleSheet.create({
       }
     })
   },
+
   browseList: {
     marginTop: 30,
     paddingHorizontal: 16,
-    marginBottom: 30
+    ...Platform.select({
+      ios: {
+        marginBottom: 60
+      },
+      android: {
+        marginBottom: 30
+      }
+    })
   },
+
+
   browseListItem: {
     ...Platform.select({
       ios: {

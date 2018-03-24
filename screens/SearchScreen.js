@@ -4,7 +4,8 @@ import {
   Platform,
   View,
   ListView,
-  TextInput
+  TextInput,
+  StyleSheet,
 } from 'react-native';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
@@ -14,13 +15,25 @@ import { TMDB_URL, TMDB_API_KEY } from '../constants/Api';
 import * as moviesActions from '../state/moviesActions';
 import CardThree from '../components/CardThree';
 import styles from './styles/Search';
+import CloseButton from '../navigation/CloseButton'
+
+
+
 
 class Search extends Component {
-  static route = {
-    navigationBar: {
-      title(params) { return params.title || 'Search' },
-    }
+  static navigationOptions = ({ navigation }) =>{
+    return {
+      title: navigation.state.params.title,
+      headerTitleStyle: { color: '#fff', fontWeight: '500' },
+      headerTintColor: 'dark',
+      // headerTransparent: true,
+      headerRight: (Platform.OS === 'ios' && <CloseButton/> ),
+      headerStyle: {
+        backgroundColor: 'transparent',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      }
   }
+}
 
   constructor(props) {
     super(props);
@@ -89,7 +102,7 @@ class Search extends Component {
   }
 
   _viewMovie(movieId) {
-    this.props.navigation.showModal('movie', { movieId });
+    this.props.navigation.navigate('Movie', { movieId });
   }
 
   _renderListView() {
@@ -136,9 +149,7 @@ class Search extends Component {
 Search.propTypes = {
   actions: PropTypes.object.isRequired,
   searchResults: PropTypes.object.isRequired,
-  navigator: PropTypes.object,
   navigation: PropTypes.object,
-  route: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {

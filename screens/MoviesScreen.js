@@ -14,7 +14,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withNavigation } from '@expo/ex-navigation';
+// import { withNavigation } from '@expo/ex-navigation';
+import { withNavigation } from 'react-navigation';
 
 import * as moviesActions from '../state/moviesActions';
 import CardOne from '../components/CardOne';
@@ -41,17 +42,27 @@ class SearchButton extends Component {
   }
 
   _openSearch = () => {
-    this.props.navigation.showModal('search', { title: 'Search' });
+    this.props.navigation.navigate('Search', { title: 'Search' });
   };
 }
 
 class Movies extends Component {
-  static route = {
-    navigationBar: {
-      title: 'Movies',
-      renderRight: () => Platform.OS === 'ios' && <SearchButton />
+  static navigationOptions = {
+    title: "Movies",
+    headerRight: (Platform.OS === 'ios' && <SearchButton/>),
+    headerTitleStyle: { color: '#fff', fontWeight: '500' },
+    headerTintColor: 'dark',
+    // headerTransparent: true,
+    headerStyle: {
+      backgroundColor: 'transparent',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      // right: 0,
+      //   left: 0,
+      //   top: 0,
+      //   position: 'absolute',
+      //   borderBottomWidth: 0,
     }
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -83,11 +94,11 @@ class Movies extends Component {
   }
 
   _viewMoviesList(type, title) {
-    this.props.navigation.showModal('moviesList', { type, title });
+    this.props.navigation.navigate('MoviesList', { type, title });
   }
 
   _viewMovie(movieId) {
-    this.props.navigation.showModal('movie', { movieId });
+    this.props.navigation.navigate('Movie', { movieId });
   }
 
   _onRefresh() {
@@ -121,16 +132,16 @@ class Movies extends Component {
         style={{ width: 22 }}
       />
     );
-    const topInset = this.props.route.getContentInsetsStyle().marginTop;
+    // const topInset = this.props.route.getContentInsetsStyle().marginTop;
 
     return this.state.isLoading
       ? <View style={styles.progressBar}>
           <ProgressBar />
         </View>
       : <ScrollView
-          style={[styles.container]}
-          contentInset={{ top: topInset }}
-          contentOffset={{ y: -topInset }}
+          style={styles.container}
+          // contentInset={{ top: topInset }}
+          // contentOffset={{ y: -topInset }}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
@@ -231,9 +242,7 @@ Movies.propTypes = {
   actions: PropTypes.object.isRequired,
   nowPlayingMovies: PropTypes.object.isRequired,
   popularMovies: PropTypes.object.isRequired,
-  navigator: PropTypes.object,
   navigation: PropTypes.object,
-  route: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

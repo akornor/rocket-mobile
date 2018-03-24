@@ -38,11 +38,11 @@ import Info from '../components/tabs/Info';
 import Trailers from '../components/tabs/Trailers';
 
 class Movie extends Component {
-  static route = {
-    navigationBar: {
-      visible: false
-    }
-  };
+  // static route = {
+  //   navigationBar: {
+  //     visible: false
+  //   }
+  // };
 
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ class Movie extends Component {
 
   _retrieveDetails(isRefreshed) {
     this.props.actions
-      .retrieveMovieDetails(this.props.route.params.movieId)
+      .retrieveMovieDetails(this.props.navigation.state.params.movieId)
       .then(() => {
         this._retrieveYoutubeDetails();
       });
@@ -89,7 +89,7 @@ class Movie extends Component {
 
   _retrieveSimilarMovies() {
     this.props.actions.retrieveSimilarMovies(
-      this.props.route.params.movieId,
+      this.props.navigation.state.params.movieId,
       1
     );
   }
@@ -181,7 +181,7 @@ class Movie extends Component {
   }
 
   _dismissModal = () => {
-    this.props.navigation.dismissModal();
+    this.props.navigation.goBack();
 
     if (Platform.OS === 'ios') {
       NativeModules.StatusBarManager.setHidden(false, 'slide');
@@ -369,7 +369,7 @@ Movie.propTypes = {
   actions: PropTypes.object.isRequired,
   details: PropTypes.object.isRequired,
   navigator: PropTypes.object,
-  route: PropTypes.object
+  // route: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

@@ -8,22 +8,15 @@ import { Provider } from 'react-redux';
 import store from './state/store';
 
 import navigationContext from './navigation/CustomNavigationContext';
-import { NavigationProvider, StackNavigation } from '@expo/ex-navigation';
+// import { NavigationProvider, StackNavigation } from '@expo/ex-navigation';
+import { RootNavigator } from './navigation/routes';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#000' }}>
         <Provider store={store}>
-          <NavigationProvider context={navigationContext}>
-            <StackNavigation
-              id="root"
-              navigatorUID="root"
-              initialRoute={
-                Platform.OS === 'android' ? 'drawerNavigation' : 'tabNavigation'
-              }
-            />
-          </NavigationProvider>
+          <RootNavigator/>
         </Provider>
       </View>
     );

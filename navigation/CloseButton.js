@@ -1,13 +1,14 @@
-import React from 'react';
-import { withNavigation } from '@expo/ex-navigation';
+import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
 import { TouchableOpacity, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 @withNavigation
-export default class CloseButton extends React.Component {
+export default class CloseButton extends Component {
   render() {
     return (
       <TouchableOpacity
-        onPress={() => this.props.navigation.dismissModal()}
+        onPress={this._dismissModal}
         style={{
           flex: 1,
           alignItems: 'center',
@@ -15,8 +16,12 @@ export default class CloseButton extends React.Component {
           paddingRight: 15
         }}
       >
-        <Text style={{ color: '#fff', fontSize: 16 }}>Close</Text>
+        <Icon name="ios-close" color="#fff" size={35} />
       </TouchableOpacity>
     );
   }
+
+  _dismissModal = () => {
+    this.props.navigation.goBack();
+  };
 }
