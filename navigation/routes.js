@@ -6,6 +6,7 @@ import MovieScreen from '../screens/MovieScreen';
 import MoviesListScreen from '../screens/MoviesListScreen';
 import MoviesScreen from '../screens/MoviesScreen';
 import SearchScreen from '../screens/SearchScreen';
+import AuthScreen from '../screens/AuthScreen';
 import {
   Ionicons,
 } from '@expo/vector-icons';
@@ -28,7 +29,11 @@ export const MoviesStack = StackNavigator({
 // 		screen: ProfileScreen,
 // 	}
 // });
-
+export const AuthStack = StackNavigator({
+	Auth:{
+		screen: AuthScreen
+	},
+})
 export const SearchStack = StackNavigator({
 	Search:{
 		screen: SearchScreen,
@@ -56,10 +61,20 @@ export const Tabs = TabNavigator({
 			tabBarIcon: ({ tintColor, focused }) => (focused ? <Ionicons name="ios-person" size={35}/> : <Ionicons name="ios-person-outline" size={35}/>)
 		}
 	}
+},{
+	tabBarOptions: {
+     // style:{
+     // 	backgroundColor: '#000',
+     // }
+     showLabel: false,
+    },
 });
 
 
 export const RootNavigator = StackNavigator({
+	Auth:{
+		screen: AuthScreen,
+	},
 	Tabs:{
 		screen: Tabs,
 	},

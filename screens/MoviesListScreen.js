@@ -111,14 +111,15 @@ class MoviesList extends Component {
 
   render() {
     // const topInset = this.props.route.getContentInsetsStyle().marginTop + 15;
+    const topInset = 10
 
     return (
       this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
       <View style={{flex: 1}}>
         <ListView
           style={styles.container}
-          // contentInset={{top: topInset}}
-          // contentOffset={{y: -topInset}}
+          contentInset={{top: topInset}}
+          contentOffset={{y: -topInset}}
           contentContainerStyle={{
             paddingTop: Platform.OS === 'android' ? 15 : 0
           }}

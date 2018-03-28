@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { Component } from 'react';
 import Expo from 'expo';
 import { Platform, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import navigationContext from './navigation/CustomNavigationContext';
 // import { NavigationProvider, StackNavigation } from '@expo/ex-navigation';
 import { RootNavigator } from './navigation/routes';
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#000' }}>
@@ -23,7 +23,7 @@ export default class App extends React.Component {
   }
 }
 
-class AppContainer extends React.Component {
+class AppContainer extends Component {
   state = {
     isLoaded: false
   };

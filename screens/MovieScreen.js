@@ -102,7 +102,7 @@ class Movie extends Component {
   _onScroll(event) {
     const contentOffsetY = event.nativeEvent.contentOffset.y.toFixed();
 
-    if (contentOffsetY > 130) {
+    if (contentOffsetY > 150) {
       this._toggleNavbar('hidden');
     } else {
       this._toggleNavbar('shown');
@@ -368,7 +368,7 @@ class Movie extends Component {
 Movie.propTypes = {
   actions: PropTypes.object.isRequired,
   details: PropTypes.object.isRequired,
-  navigator: PropTypes.object,
+  // navigator: PropTypes.object,
   // route: PropTypes.object
 };
 

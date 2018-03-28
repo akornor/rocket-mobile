@@ -48,7 +48,7 @@ class SearchButton extends Component {
 
 class Movies extends Component {
   static navigationOptions = {
-    title: "Movies",
+    title: "Home",
     headerRight: (Platform.OS === 'ios' && <SearchButton/>),
     headerTitleStyle: { color: '#fff', fontWeight: '500' },
     headerTintColor: 'dark',
