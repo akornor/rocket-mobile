@@ -1,47 +1,48 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native';
 import ProgressBar from '../components/ProgressBar';
-import { Button, SocialIcon } from 'react-native-elements';
+import { SocialIcon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as authActions from '../state/authActions';
 
-
-export default class AuthScreen extends Component {
+class AuthScreen extends Component {
 	state = {
 		isLoading: true
 	}
-	_onPress = () => {
-		AsyncStorage.setItem('user', 'raymond')
-		const action = NavigationActions.reset({index:0, key: null, actions:[NavigationActions.navigate({routeName: 'Tabs'})]})
-		this.props.navigation.dispatch(action)
 
+	navigate(routeName){
+		const action = NavigationActions.reset({index:0, key: null, actions:[NavigationActions.navigate({routeName: routeName})]})
+		this.props.navigation.dispatch(action)
 	}
 	async componentWillMount(){
-		user = await AsyncStorage.getItem('user')
-		console.log(user)
+		user = await AsyncStorage.getItem('token')
+		console.log(user) //eslint-disable-line
 		if (user){
-			const action = NavigationActions.reset({index:0, key: null, actions:[NavigationActions.navigate({routeName: 'Tabs'})]})
-			this.props.navigation.dispatch(action)
-			// AsyncStorage.removeItem('user')
+			this.navigate('Tabs')
+			AsyncStorage.removeItem('token')
 		}
 		else{
 			this.setState({isLoading: false})
 		}
+	}
 
+	componentWillReceiveProps(nextProps){
+		if (nextProps.token){
+			this.navigate('Tabs')
+		}
 	}
 	render(){
 		return(
 			this.state.isLoading ? <ProgressBar/>
 			:<View style={styles.container}>
-				<Text> AuthScreen </Text>
 				<SocialIcon
 				  title='Sign In With Facebook'
 				  button
 				  type='facebook'
 				  style={styles.button}
-				/>
-				<Button
-				title='GO HOME'
-				onPress={this._onPress}
+				  onPress={this.props.actions.facebookLogin}
 				/>
 			</View>
 			)
@@ -52,8 +53,24 @@ const styles = StyleSheet.create({
 	container:{
 		flex: 1,
 		justifyContent: 'center',
+		backgroundColor: 'black',
 	},
 	button:{
 		alignItems: 'center',
 	}
 })
+
+function mapStateToProps({ auth }){
+	return {token: auth.token};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(authActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+
+
+

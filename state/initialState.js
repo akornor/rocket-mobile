@@ -6,5 +6,8 @@ export default {
     nowPlayingMovies: {},
     popularMovies: {},
     searchResults: {}
+  },
+  auth:{
+    token: null
   }
 }

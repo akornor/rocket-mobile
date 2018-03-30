@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "movieapp",
-    "description": "Discover Movies and TV shows. Built by JuneDomingo. This is a fork of his project that runs on Expo and uses @expo/ex-navigation. Original repo: https://github.com/JuneDomingo/movieapp Fork: https://github.com/brentvatne/movieapp",
+    "description": "Discover Movies and Buy Tickets",
     "slug": "movieapp",
     "sdkVersion": "20.0.0",
     "version": "1.0.0",
