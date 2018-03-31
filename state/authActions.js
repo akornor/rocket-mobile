@@ -2,9 +2,24 @@ import { AsyncStorage } from 'react-native';
 import { Facebook } from 'expo';
 import * as types from '../constants/ActionTypes';
 import axios from 'axios';
+import firebase from '../firebase';
 
+export const logOut = () =>{
+	// logout user
+	return function(dispatch){
+		firebase.auth().signOut().then(async function() {
+			// Sign-out successful + remove token
+			dispatch({type: types.USER_LOGOUT_SUCCESS});
+			await AsyncStorage.removeItem('token');
+		  }).catch(function(error) {
+			// An error happened.
+			console.log(error)
+			dispatch({type:types.USER_LOGOUT_FAIL});
+		  });
+	}
+}
 
-export const facebookLogin = () => {
+export const loginWithFacebook = () => {
 	return async function(dispatch){
 		let token;
 		try{
@@ -30,14 +45,19 @@ const doFacebookLogin = async (dispatch) => {
         dispatch({type: types.FACEBOOK_LOGIN_FAIL});
         return;
     }
-	dispatch({type: types.FACEBOOK_LOGIN_SUCCESS, payload: token});    
+	dispatch({type: types.FACEBOOK_LOGIN_SUCCESS, payload: token});
+	const credential = firebase.auth.FacebookAuthProvider.credential(token);
+	firebase.auth().signInWithCredential(credential).catch((error) => {
+		// Handle Errors here.
+		console.log(error)
+	  });    
     // get user info and store
     let {id, name, email} = getUserInfo(token)
     const user = {id, name, email}
     // console.log(user)
     try {
         await AsyncStorage.multiSet([['user', JSON.stringify(user)], ['token', token]], ()=>{
-            console.log('values successfuly set'); //eslint-disable-line
+            console.log('user and token values successfuly set'); //eslint-disable-line
         })
     } catch (error) {
         console.log(error);
@@ -47,6 +67,6 @@ const doFacebookLogin = async (dispatch) => {
 //helper functions
 async function getUserInfo(token){
     let {data} = await axios.get(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,gender,age_range,birthday`)
-    console.log(data) //eslint-disable-line
+    // console.log(data) //eslint-disable-line
     return data
 }

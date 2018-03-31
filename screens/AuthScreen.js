@@ -6,6 +6,7 @@ import { NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActions from '../state/authActions';
+import firebase from '../firebase';
 
 class AuthScreen extends Component {
 	state = {
@@ -16,33 +17,45 @@ class AuthScreen extends Component {
 		const action = NavigationActions.reset({index:0, key: null, actions:[NavigationActions.navigate({routeName: routeName})]})
 		this.props.navigation.dispatch(action)
 	}
-	async componentWillMount(){
-		user = await AsyncStorage.getItem('token')
-		console.log(user) //eslint-disable-line
-		if (user){
-			this.navigate('Tabs')
-			AsyncStorage.removeItem('token')
-		}
-		else{
-			this.setState({isLoading: false})
-		}
+	componentDidMount(){
+		// const token = await AsyncStorage.getItem('token');
+		// if (token){
+		// 	this.navigate('Tabs');
+		// 	// return;
+		// }
+		// check if user is authenticated
+		this.unSubscribe = firebase.auth().onAuthStateChanged((user)=>{
+			// console.log(user) //eslint-disable-line
+			if (user){
+				this.navigate('Tabs')
+				// AsyncStorage.removeItem('token')
+			}
+			else{
+				this.setState({isLoading: false})
+			}
+		})
 	}
-
-	componentWillReceiveProps(nextProps){
-		if (nextProps.token){
-			this.navigate('Tabs')
-		}
+	componentWillUnmount(){
+		this.unSubscribe()
 	}
+	// componentWillReceiveProps(nextProps){
+	// 	if (nextProps.token){
+	// 		this.navigate('Tabs')
+	// 	}
+	// }
 	render(){
 		return(
-			this.state.isLoading ? <ProgressBar/>
+			this.state.isLoading ? 
+			<View style={styles.container}>
+			<ProgressBar/>
+			</View>
 			:<View style={styles.container}>
 				<SocialIcon
 				  title='Sign In With Facebook'
 				  button
 				  type='facebook'
 				  style={styles.button}
-				  onPress={this.props.actions.facebookLogin}
+				  onPress={this.props.actions.loginWithFacebook}
 				/>
 			</View>
 			)
@@ -70,7 +83,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
+export default connect(null, mapDispatchToProps)(AuthScreen);
 
 
 

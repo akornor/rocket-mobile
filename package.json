@@ -12,6 +12,7 @@
     "axios": "^0.15.2",
     "create-react-class": "^15.6.3",
     "expo": "^20.0.0",
+    "firebase": "^4.12.1",
     "lodash": "^4.16.6",
     "moment": "^2.16.0",
     "numeral": "^1.5.3",
