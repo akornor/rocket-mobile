@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as authActions from '../state/authActions';
 import { NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import firebase from '../firebase';
 
 class ProfileScreen extends React.Component {
   navigate(routeName){
@@ -13,8 +14,12 @@ class ProfileScreen extends React.Component {
   }
   
   _onPress = () =>{
-    this.props.actions.logOut();
-    this.navigate('Auth');
+    firebase.auth().signOut().then(async () => {
+      await AsyncStorage.clear();
+      this.navigate('Auth');
+    }).catch((error)=> {
+      console.log('sign out failed')
+    })
   }
 
   render() {
