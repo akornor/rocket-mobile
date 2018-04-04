@@ -17,7 +17,7 @@ const Casts = ({ info, getTabHeight }) => {
   return (
     <View style={styles.container} onLayout={getTabHeight.bind(this, 'casts', computedHeight)}>
       {
-        info.casts.cast.map(item => (
+        info.casts.cast.slice(0, 6).map(item => (
           <View key={item.cast_id} style={styles.castContainer}>
             <FadeIn placeholderStyle={{backgroundColor: '#000'}}>
               <Image source={{ uri: `${TMDB_IMG_URL}/w185/${item.profile_path}` }} style={styles.castImage} />
