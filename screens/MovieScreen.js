@@ -36,7 +36,7 @@ import BackButton from '../navigation/BackButton';
 import Casts from '../components/tabs/Casts';
 import Info from '../components/tabs/Info';
 import Trailers from '../components/tabs/Trailers';
-
+import MovieTimes from '../components/tabs/MovieTimes';
 class Movie extends Component {
   // static route = {
   //   navigationBar: {
@@ -257,7 +257,7 @@ class Movie extends Component {
               />
             }
           >
-            <View style={{ height }}>
+            <View>
               <Swiper
                 style={styles.swiper}
                 autoplay
@@ -336,8 +336,10 @@ class Movie extends Component {
                       textStyle={styles.textStyle}
                       underlineStyle={styles.underlineStyle}
                       style={styles.tabBar}
+                      locked={true}
                     />}
                 >
+                  <MovieTimes tabLabel="MOVIE TIMES"/>                  
                   <Info tabLabel="INFO" info={info} />
                   <Casts
                     tabLabel="CASTS"
