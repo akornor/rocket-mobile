@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 class MovieTimes extends Component{
     _onPress = () =>{
         console.log('sweet')
-        this.props.navigation.goBack()
+        this.props.navigation.navigate('Presale')
     }
     renderCards(){
         const data = this.props.data || [{id: 1, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 2, name: "Poop Town Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "10:00p", "10:00b"]}, {id: 3, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 4, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}]
@@ -20,7 +20,6 @@ class MovieTimes extends Component{
             )
         }
         return data.map((item) =>{
-            console.log(item.movietimes)
             return(
                 <Card
                 key={item.id}
