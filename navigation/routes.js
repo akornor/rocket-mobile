@@ -7,6 +7,7 @@ import MoviesListScreen from '../screens/MoviesListScreen';
 import MoviesScreen from '../screens/MoviesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import AuthScreen from '../screens/AuthScreen';
+import PresaleScreen from '../screens/PresaleScreen';
 import {
   Ionicons,
 } from '@expo/vector-icons';
@@ -43,6 +44,12 @@ export const SearchStack = StackNavigator({
 export const MoviesListStack = StackNavigator({
 	MoviesList:{
 		screen: MoviesListScreen,
+	}
+})
+
+const MovieStack = StackNavigator({
+	Movie:{
+		screen: MovieScreen
 	}
 })
 
@@ -86,6 +93,9 @@ export const RootNavigator = StackNavigator({
 	},
 	MoviesList:{
 		screen: MoviesListStack
+	},
+	Presale:{
+		screen: PresaleScreen
 	}
 },{
 	mode: 'modal',
