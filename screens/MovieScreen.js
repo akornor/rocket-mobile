@@ -79,12 +79,16 @@ class Movie extends Component {
   }
 
   _retrieveDetails(isRefreshed) {
-    this.props.actions
+    try{
+      this.props.actions
       .retrieveMovieDetails(this.props.navigation.state.params.movieId)
       .then(() => {
         this._retrieveYoutubeDetails();
       });
     if (isRefreshed && this.setState({ isRefreshing: false }));
+    }catch(error){
+      console.log(error);
+    }
   }
 
   _retrieveSimilarMovies() {
@@ -151,7 +155,8 @@ class Movie extends Component {
   }
 
   _retrieveYoutubeDetails() {
-    this.props.details.videos.results.map(item => {
+    try{
+      this.props.details.videos.results.map(item => {
       const request = axios
         .get(
           `${YOUTUBE_URL}/?id=${item.key}&key=${YOUTUBE_API_KEY}&part=snippet`
@@ -164,7 +169,11 @@ class Movie extends Component {
           console.log(error); //eslint-disable-line
         });
       return request;
-    });
+      });
+    }catch(error){
+      console.log(error);
+    }
+    
   }
 
   _openYoutube(youtubeUrl) {
