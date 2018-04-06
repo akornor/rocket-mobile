@@ -4,20 +4,6 @@ import * as types from '../constants/ActionTypes';
 import axios from 'axios';
 import firebase from '../firebase';
 
-export const logOut = () =>{
-	// logout user
-	return function(dispatch){
-		firebase.auth().signOut().then(async function() {
-			// Sign-out successful + remove token
-			dispatch({type: types.USER_LOGOUT_SUCCESS});
-			await AsyncStorage.removeItem('token');
-		  }).catch(function(error) {
-			// An error happened.
-			console.log(error)
-			dispatch({type:types.USER_LOGOUT_FAIL});
-		  });
-	}
-}
 
 export const loginWithFacebook = () => {
 	return async function(dispatch){
