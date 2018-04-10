@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Platform
+  Platform,
+  StatusBar,
 } from 'react-native';
 import Expo from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -56,6 +57,7 @@ class Movies extends Component {
     headerStyle: {
       backgroundColor: 'transparent',
       borderBottomWidth: StyleSheet.hairlineWidth,
+
       // right: 0,
       //   left: 0,
       //   top: 0,
@@ -234,6 +236,11 @@ class Movies extends Component {
               </TouchableOpacity>
             </View>
           </View>
+          <StatusBar
+            translucent
+            animated
+            barStyle="light-content"
+          />
         </ScrollView>;
   }
 }
