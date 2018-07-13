@@ -6,7 +6,7 @@ import { SocialIcon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import firebase from '../firebase';
 
-class AuthScreen extends Component {
+export default class AuthScreen extends Component {
   state = {
     isLoading: true,
     buttonLoading: false,
@@ -18,7 +18,7 @@ class AuthScreen extends Component {
     });
     console.log(token, type); //eslint-disable-line
     if (type === 'cancel') {
-      console.log(type);
+      console.log(type); //eslint-disable-line
       Alert.alert(
       'Error',
       'Authentication Failed. Try again.',
@@ -50,7 +50,6 @@ class AuthScreen extends Component {
           type="facebook"
           style={styles.button}
           onPress={this._signInAsync}
-          style={{ borderRadius: 5 }}
           fontWeight="700"
         />
       </View>
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
   },
   button: {
     alignContent: 'center',
+    borderRadius: 5,
   },
 });
-
-export default AuthScreen;
