@@ -1,5 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import initialState from './initialState';
+import { REHYDRATE } from 'redux-persist/constants';
 
 export default function(state = initialState.movies, action) {
   switch (action.type) {
