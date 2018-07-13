@@ -3,7 +3,7 @@
     "name": "movieapp",
     "description": "Discover Movies and Buy Tickets",
     "slug": "movieapp",
-    "sdkVersion": "21.0.0",
+    "sdkVersion": "22.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#000000",
