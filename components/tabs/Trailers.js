@@ -10,7 +10,6 @@ const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {
   const trailers = _.take(youtubeVideos, 6); // take 6 videos instead of 10
   let computedHeight = (90 + 10) * youtubeVideos.length; // (thumbnail.height + thumbnailContainer.marginBottom)
   computedHeight += 447 + 40; // Header height + container ((20 paddingVertical) = 40)
-  console.log(trailers);
   if (trailers.length === 0) {
     return <View />;
   } else {
