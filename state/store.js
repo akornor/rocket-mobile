@@ -12,7 +12,7 @@ const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(thunk),
     autoRehydrate(),
   ),
 );
