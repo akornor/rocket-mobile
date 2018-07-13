@@ -11,7 +11,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import axios from 'axios';
-// import { withNavigation } from '@expo/ex-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 

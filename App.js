@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import Expo from 'expo';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Platform, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-
 import { Provider } from 'react-redux';
 import store from './state/store';
 import { RootNavigator } from './navigation/routes';

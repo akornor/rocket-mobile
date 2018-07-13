@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { withNavigation } from '@expo/ex-navigation';
 import { withNavigation } from 'react-navigation';
 import _ from 'lodash';
 
