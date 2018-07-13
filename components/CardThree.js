@@ -20,15 +20,11 @@ class CardThree extends Component {
     const { info, viewMovie } = this.props;
     return (
       <View style={styles.cardContainer}>
-        <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={viewMovie.bind(this, info.id)}
-        >
+        <TouchableOpacity activeOpacity={0.9} onPress={viewMovie.bind(this, info.id)}>
           <View style={styles.card}>
             <FadeIn
               placeholderStyle={{
-                backgroundColor:
-                  Platform.OS === 'android' ? 'transparent' : '#eee'
+                backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee',
               }}
             >
               <Image
@@ -41,16 +37,12 @@ class CardThree extends Component {
                 {info.original_title}
               </Text>
               <View style={styles.cardGenre}>
-                <Text style={styles.cardGenreItem}>
-                  {info.release_date.substring(0, 4)}
-                </Text>
+                <Text style={styles.cardGenreItem}>{info.release_date.substring(0, 4)}</Text>
               </View>
               <View style={styles.cardNumbers}>
                 <View style={styles.cardStar}>
                   {iconStar}
-                  <Text style={styles.cardStarRatings}>
-                    {info.vote_average.toFixed(1)}
-                  </Text>
+                  <Text style={styles.cardStarRatings}>{info.vote_average.toFixed(1)}</Text>
                 </View>
                 <Text style={styles.cardRunningHours} />
               </View>
@@ -67,12 +59,12 @@ class CardThree extends Component {
 
 CardThree.propTypes = {
   info: PropTypes.object.isRequired,
-  viewMovie: PropTypes.func.isRequired
+  viewMovie: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
-    moviesGenres: state.movies.genres
+    moviesGenres: state.movies.genres,
   };
 }
 

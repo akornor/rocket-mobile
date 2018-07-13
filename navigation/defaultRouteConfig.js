@@ -12,10 +12,10 @@ const defaultRouteConfig = {
         borderBottomColor: 'rgba(255,255,255,0.1)',
       },
       android: {
-        titleStyle: { color: '#fff', fontWeight: '500' }
+        titleStyle: { color: '#fff', fontWeight: '500' },
       },
-    })
+    }),
   },
-}
+};
 
 export default defaultRouteConfig;

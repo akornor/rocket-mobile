@@ -9,81 +9,83 @@ import * as authActions from '../state/authActions';
 import firebase from '../firebase';
 
 class AuthScreen extends Component {
-	state = {
-		isLoading: true
-	}
+  state = {
+    isLoading: true,
+    buttonLoading: false,
+  };
 
-	navigate(routeName){
-		const action = NavigationActions.reset({index:0, key: null, actions:[NavigationActions.navigate({routeName: routeName})]})
-		this.props.navigation.dispatch(action)
-	}
-	componentDidMount(){
-		// const token = await AsyncStorage.getItem('token');
-		// if (token){
-		// 	this.navigate('Tabs');
-		// 	// return;
-		// }
-		// check if user is authenticated
-		this.unSubscribe = firebase.auth().onAuthStateChanged((user)=>{
-			// console.log(user) //eslint-disable-line
-			if (user){
-				this.navigate('Tabs')
-				// AsyncStorage.removeItem('token')
-			}
-			else{
-				this.setState({isLoading: false})
-			}
-		})
-	}
-	componentWillUnmount(){
-		this.unSubscribe()
-	}
-	// componentWillReceiveProps(nextProps){
-	// 	if (nextProps.token){
-	// 		this.navigate('Tabs')
-	// 	}
-	// }
-	render(){
-		return(
-			this.state.isLoading ? 
-			<View style={styles.container}>
-			<ProgressBar/>
-			</View>
-			:<View style={styles.container}>
-				<SocialIcon
-				  title='Sign In With Facebook'
-				  button
-				  type='facebook'
-				  style={styles.button}
-				  onPress={this.props.actions.loginWithFacebook}
-				/>
-			</View>
-			)
-	}
+  navigate(routeName) {
+    const action = NavigationActions.reset({
+      index: 0,
+      key: null,
+      actions: [NavigationActions.navigate({ routeName: routeName })],
+    });
+    this.props.navigation.dispatch(action);
+  }
+  async componentDidMount() {
+    // check if user is authenticated
+    // await AsyncStorage.clear()
+    this.unSubscribe = firebase.auth().onAuthStateChanged(user => {
+      // console.log(user) //eslint-disable-line
+      if (user) {
+        this.navigate('Tabs');
+        // AsyncStorage.removeItem('token')
+      } else {
+        this.setState({ isLoading: false });
+      }
+    });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.token) {
+      this.setState({ buttonLoading: true });
+    }
+  }
+  componentWillUnmount() {
+    this.unSubscribe();
+  }
+
+  render() {
+    return this.state.isLoading ? (
+      <View style={styles.container}>
+        <ProgressBar />
+      </View>
+    ) : (
+      <View style={styles.container}>
+        <SocialIcon
+          title="SIGN IN WITH FACEBOOK"
+          button
+          loading={this.state.buttonLoading}
+          type="facebook"
+          style={styles.button}
+          onPress={this.props.actions.loginWithFacebook}
+          style={{ borderRadius: 5 }}
+          fontWeight="700"
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-	container:{
-		flex: 1,
-		justifyContent: 'center',
-		backgroundColor: 'black',
-	},
-	button:{
-		alignItems: 'center',
-	}
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'black',
+    flexDirection: 'column',
+  },
+  button: {
+    alignContent: 'center',
+  },
+});
 
-function mapStateToProps({ auth }){
-	return {token: auth.token};
+function mapStateToProps({ auth }) {
+  return { token: auth.token };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(authActions, dispatch)
+    actions: bindActionCreators(authActions, dispatch),
   };
 }
 
-export default connect(null, mapDispatchToProps)(AuthScreen);
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

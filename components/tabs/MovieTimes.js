@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, NativeModules, Platform } from 'react-native';
 import { Card, Button } from 'react-native-elements';
-import { EvilIcons } from '@expo/vector-icons'
 import { withNavigation } from 'react-navigation';
 
 @withNavigation
 class MovieTimes extends Component{
     _onPress = () =>{
-        console.log('sweet')
-        this.props.navigation.navigate('Presale')
+        this.props.navigation.navigate('Presale', {movieId: this.props.movieId, info: this.props.info})
+        // if (Platform.OS === 'ios') {
+        //   NativeModules.StatusBarManager.setHidden(false, 'slide');
+        // }
     }
     renderCards(){
-        const data = this.props.data || [{id: 1, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 2, name: "Poop Town Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "10:00p", "10:00b"]}, {id: 3, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 4, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}]
+        const data = this.props.data || [{id: 1, name: "Silverbird Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 2, name: "Global Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "10:00p"]}, {id: 3, name: "Silverbird Cinema Weija", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}, {id: 4, name: "Poop Town Cinema", movietimes: ["10:00a", "11:20a", "12:20p", "01:30p"]}]
         if(!data){
             return(
                 <Card
@@ -50,6 +51,7 @@ class MovieTimes extends Component{
                             buttonStyle={{
                                 backgroundColor: "#EA0000",
                                 borderRadius: 5,
+                                padding:1,
                             }}
                             />
                         )

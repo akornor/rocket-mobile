@@ -5,9 +5,9 @@ export default {
     list: {},
     nowPlayingMovies: {},
     popularMovies: {},
-    searchResults: {}
+    searchResults: {},
   },
-  auth:{
-    token: null
-  }
-}
+  auth: {
+    token: null,
+  },
+};

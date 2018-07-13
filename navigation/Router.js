@@ -20,7 +20,7 @@ export default createRouter(
     movies: () => MoviesScreen,
     moviesList: () => MoviesListScreen,
     search: () => SearchScreen,
-    tabNavigation: () => TabNavigationScreen
+    tabNavigation: () => TabNavigationScreen,
   }),
-  { ignoreSerializableWarnings: true }
+  { ignoreSerializableWarnings: true },
 );

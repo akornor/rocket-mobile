@@ -18,5 +18,5 @@ class CustomNavigationContext extends NavigationContext {
 }
 
 export default new CustomNavigationContext({
-  router: Router
+  router: Router,
 });

@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  Animated,
-  Platform,
-  View,
-} from 'react-native';
-import {
-  NavigationStyles,
-  StackNavigation,
-} from '@expo/ex-navigation';
+import { Animated, Platform, View } from 'react-native';
+import { NavigationStyles, StackNavigation } from '@expo/ex-navigation';
 import BackButton from '../navigation/BackButton';
 import CloseButton from '../navigation/CloseButton';
 import defaultRouteConfig from '../navigation/defaultRouteConfig';
@@ -31,14 +24,14 @@ export default class ModalScreen extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#000'}}>
+      <View style={{ flex: 1, backgroundColor: '#000' }}>
         <StackNavigation
           initialRoute={this.props.route.params.initialRoute}
           defaultRouteConfig={{
-            styles: (Platform.OS === 'android' ?
-              NavigationStyles.Fade :
-              NavigationStyles.SlideHorizontalIOS
-            ),
+            styles:
+              Platform.OS === 'android'
+                ? NavigationStyles.Fade
+                : NavigationStyles.SlideHorizontalIOS,
             navigationBar: {
               visible: true,
               ...Platform.select({
@@ -46,8 +39,8 @@ export default class ModalScreen extends React.Component {
                   renderRight: () => <CloseButton />,
                 },
                 android: {
-                  renderLeft: () => <BackButton isModal style={{marginLeft: 16}} />,
-                }
+                  renderLeft: () => <BackButton isModal style={{ marginLeft: 16 }} />,
+                },
               }),
               ...defaultRouteConfig.navigationBar,
             },

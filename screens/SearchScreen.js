@@ -1,12 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-  Platform,
-  View,
-  ListView,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import { Platform, View, ListView, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,25 +9,19 @@ import { TMDB_URL, TMDB_API_KEY } from '../constants/Api';
 import * as moviesActions from '../state/moviesActions';
 import CardThree from '../components/CardThree';
 import styles from './styles/Search';
-import CloseButton from '../navigation/CloseButton'
-
-
-
+import CloseButton from '../navigation/CloseButton';
+import { SearchBar } from 'react-native-elements';
+import defaultNavigationOptions from '../navigation/defaultNavOptions';
 
 class Search extends Component {
-  static navigationOptions = ({ navigation }) =>{
+  static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.state.params.title,
-      headerTitleStyle: { color: '#fff', fontWeight: '500' },
-      headerTintColor: 'dark',
       // headerTransparent: true,
-      headerRight: (Platform.OS === 'ios' && <CloseButton/> ),
-      headerStyle: {
-        backgroundColor: 'transparent',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-      }
-  }
-}
+      headerRight: Platform.OS === 'ios' && <CloseButton />,
+      ...defaultNavigationOptions,
+    };
+  };
 
   constructor(props) {
     super(props);
@@ -42,9 +30,9 @@ class Search extends Component {
       isLoading: true,
       currentPage: 1,
       searchResults: {
-        results: []
+        results: [],
       },
-      query: null
+      query: null,
     };
 
     this._viewMovie = this._viewMovie.bind(this);
@@ -58,13 +46,14 @@ class Search extends Component {
 
     setTimeout(() => {
       if (query.length) {
-        this.props.actions.retrieveMoviesSearchResults(this.state.query, 1)
-        .then(() => {
-          const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
+        this.props.actions.retrieveMoviesSearchResults(this.state.query, 1).then(() => {
+          const ds = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+          });
           const dataSource = ds.cloneWithRows(this.props.searchResults.results);
           this.setState({
             dataSource,
-            isLoading: false
+            isLoading: false,
           });
         });
       }
@@ -74,7 +63,7 @@ class Search extends Component {
   _retrieveNextPage() {
     if (this.state.currentPage !== this.props.searchResults.total_pages) {
       this.setState({
-        currentPage: this.state.currentPage + 1
+        currentPage: this.state.currentPage + 1,
       });
 
       let page;
@@ -85,7 +74,12 @@ class Search extends Component {
         page = this.state.currentPage + 1;
       }
 
-      axios.get(`${TMDB_URL}/search/movie/?api_key=${TMDB_API_KEY}&query=${this.state.query}&page=${page}`)
+      axios
+        .get(
+          `${TMDB_URL}/search/movie/?api_key=${TMDB_API_KEY}&query=${
+            this.state.query
+          }&page=${page}`,
+        )
         .then(res => {
           const data = this.state.searchResults.results;
           const newData = res.data.results;
@@ -93,9 +87,10 @@ class Search extends Component {
           newData.map((item, index) => data.push(item));
 
           this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.searchResults.results)
+            dataSource: this.state.dataSource.cloneWithRows(this.state.searchResults.results),
           });
-        }).catch(err => {
+        })
+        .catch(err => {
           console.log('next page', err); // eslint-disable-line
         });
     }
@@ -124,24 +119,29 @@ class Search extends Component {
     return listView;
   }
 
+  _onClear = () => {
+    this.setState({ query: null });
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.searchbox}>
-          <View style={styles.searchboxBorder}>
-            <TextInput
-              style={styles.textInput}
-              autoFocus
-              returnKeyType={'search'}
-              value={this.state.query}
-              onChange={this._handleTextInput}
-              underlineColorAndroid="transparent"
-            />
-          </View>
+        <View style={{ marginBottom: 15 }}>
+          <SearchBar
+            // showLoading={this.state.isLoading}
+            style={styles.textInput}
+            autoFocus
+            returnKeyType={'search'}
+            placeholder="Search Movie"
+            platform={Platform.OS}
+            onClear={this._onClear}
+            value={this.state.query}
+            onChange={this._handleTextInput}
+            underlineColorAndroid="transparent"
+          />
         </View>
-        { !this.state.isLoading && this._renderListView() }
+        {!this.state.isLoading && this._renderListView()}
       </View>
-
     );
   }
 }
@@ -154,13 +154,13 @@ Search.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    searchResults: state.movies.searchResults
+    searchResults: state.movies.searchResults,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(moviesActions, dispatch)
+    actions: bindActionCreators(moviesActions, dispatch),
   };
 }
 

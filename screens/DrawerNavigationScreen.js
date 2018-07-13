@@ -1,17 +1,6 @@
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  ToastAndroid,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import {
-  StackNavigation,
-  DrawerNavigation,
-  DrawerNavigationItem
-} from '@expo/ex-navigation';
+import { Dimensions, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
+import { StackNavigation, DrawerNavigation, DrawerNavigationItem } from '@expo/ex-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo';
 import Colors from '../constants/Colors';
@@ -29,24 +18,15 @@ export default class DrawerNavigationScreen extends React.Component {
         initialItem="movies"
       >
         <DrawerNavigationItem id="search">
-          <StackNavigation
-            defaultRouteConfig={defaultRouteConfig}
-            initialRoute="search"
-          />
+          <StackNavigation defaultRouteConfig={defaultRouteConfig} initialRoute="search" />
         </DrawerNavigationItem>
 
         <DrawerNavigationItem id="movies">
-          <StackNavigation
-            defaultRouteConfig={defaultRouteConfig}
-            initialRoute="movies"
-          />
+          <StackNavigation defaultRouteConfig={defaultRouteConfig} initialRoute="movies" />
         </DrawerNavigationItem>
 
         <DrawerNavigationItem id="tv">
-          <StackNavigation
-            defaultRouteConfig={defaultRouteConfig}
-            initialRoute="blank"
-          />
+          <StackNavigation defaultRouteConfig={defaultRouteConfig} initialRoute="blank" />
         </DrawerNavigationItem>
       </DrawerNavigation>
     );
@@ -70,12 +50,7 @@ export default class DrawerNavigationScreen extends React.Component {
       />
     );
     const iconTV = (
-      <Ionicons
-        name="ios-desktop"
-        size={26}
-        color="#9F9F9F"
-        style={styles.drawerListIcon}
-      />
+      <Ionicons name="ios-desktop" size={26} color="#9F9F9F" style={styles.drawerListIcon} />
     );
 
     return (
@@ -101,16 +76,13 @@ export default class DrawerNavigationScreen extends React.Component {
               {iconTV}
               <Text
                 style={styles.drawerListItemText}
-                onPress={() =>
-                  ToastAndroid.show('Coming Soon!', ToastAndroid.SHORT)}
+                onPress={() => ToastAndroid.show('Coming Soon!', ToastAndroid.SHORT)}
               >
                 TV Shows
               </Text>
             </View>
           </View>
-          <Text style={styles._version}>
-            {/* 'v1.0.0' */}
-          </Text>
+          <Text style={styles._version}>{/* 'v1.0.0' */}</Text>
         </View>
       </LinearGradient>
     );
@@ -138,31 +110,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
     paddingLeft: 25,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   drawerList: {},
   drawerListIcon: {
-    width: 27
+    width: 27,
   },
   drawerListItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 23
+    marginBottom: 23,
   },
   drawerListItemText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 23,
     paddingLeft: 15,
-    flex: 1
+    flex: 1,
   },
   linearGradient: {
-    flex: 1
+    flex: 1,
   },
   _version: {
     color: '#3c3c3c',
     position: 'absolute',
     bottom: 25,
-    marginLeft: 53
-  }
+    marginLeft: 53,
+  },
 });

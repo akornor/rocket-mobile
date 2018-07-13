@@ -13,15 +13,18 @@ export default class CloseButton extends Component {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          paddingRight: 15
+          paddingRight: 15,
         }}
       >
-        <Icon name="ios-close" color="#fff" size={35} />
+        <Icon name="ios-close-outline" color="#fff" size={35} />
       </TouchableOpacity>
     );
   }
 
   _dismissModal = () => {
+    if (this.props.onPress) {
+      return this.props.onPress();
+    }
     this.props.navigation.goBack();
   };
 }

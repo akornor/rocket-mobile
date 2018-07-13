@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 import axios from 'axios';
 // import { withNavigation } from '@expo/ex-navigation';
@@ -21,21 +21,16 @@ import CardThree from '../components/CardThree';
 import ProgressBar from '../components/ProgressBar';
 import styles from './styles/MoviesList';
 import CloseButton from '../navigation/CloseButton';
+import defaultNavigationOptions from '../navigation/defaultNavOptions';
 
 class MoviesList extends Component {
   static navigationOptions = ({ navigation }) => {
-      return {
-        title: navigation.state.params.title,
-        headerRight: (Platform.OS === 'ios' && <CloseButton/>),
-        headerTitleStyle: { color: '#fff', fontWeight: '500' },
-        headerTintColor: 'dark',
-        // headerTransparent: true,
-        headerStyle: {
-          backgroundColor: 'transparent',
-          borderBottomWidth: StyleSheet.hairlineWidth,
-          }
-      }
-  }
+    return {
+      title: navigation.state.params.title,
+      headerRight: Platform.OS === 'ios' && <CloseButton />,
+      ...defaultNavigationOptions,
+    };
+  };
 
   constructor(props) {
     super(props);
@@ -45,8 +40,8 @@ class MoviesList extends Component {
       isRefreshing: false,
       currentPage: 1,
       list: {
-        results: []
-      }
+        results: [],
+      },
     };
 
     this._viewMovie = this._viewMovie.bind(this);
@@ -58,14 +53,17 @@ class MoviesList extends Component {
   }
 
   _retrieveMoviesList(isRefreshed) {
-    this.props.actions.retrieveMoviesList(this.props.navigation.state.params.type, this.state.currentPage)
+    this.props.actions
+      .retrieveMoviesList(this.props.navigation.state.params.type, this.state.currentPage)
       .then(() => {
-        const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
+        const ds = new ListView.DataSource({
+          rowHasChanged: (row1, row2) => row1 !== row2,
+        });
         const dataSource = ds.cloneWithRows(this.props.list.results);
         this.setState({
           list: this.props.list,
           dataSource,
-          isLoading: false
+          isLoading: false,
         });
       });
     if (isRefreshed && this.setState({ isRefreshing: false }));
@@ -74,7 +72,7 @@ class MoviesList extends Component {
   async _retrieveNextPage(type) {
     if (this.state.currentPage !== this.props.list.total_pages) {
       this.setState({
-        currentPage: this.state.currentPage + 1
+        currentPage: this.state.currentPage + 1,
       });
 
       let page;
@@ -84,19 +82,19 @@ class MoviesList extends Component {
       } else {
         page = this.state.currentPage + 1;
       }
-      try{
-          let res = await axios.get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`)
-          const data = this.state.list.results;
-          const newData = res.data.results;
+      try {
+        let res = await axios.get(`${TMDB_URL}/movie/${type}?api_key=${TMDB_API_KEY}&page=${page}`);
+        const data = this.state.list.results;
+        const newData = res.data.results;
 
-          newData.map((item, index) => data.push(item));
+        newData.map((item, index) => data.push(item));
 
-          this.setState({
-              dataSource: this.state.dataSource.cloneWithRows(this.state.list.results)
-            });
-      }catch(error){
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.list.results),
+        });
+      } catch (error) {
         console.log('next page', err); // eslint-disable-line
-      }          
+      }
     }
   }
 
@@ -111,17 +109,20 @@ class MoviesList extends Component {
 
   render() {
     // const topInset = this.props.route.getContentInsetsStyle().marginTop + 15;
-    const topInset = 10
+    const topInset = 10;
 
-    return (
-      this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-      <View style={{flex: 1}}>
+    return this.state.isLoading ? (
+      <View style={styles.progressBar}>
+        <ProgressBar />
+      </View>
+    ) : (
+      <View style={{ flex: 1 }}>
         <ListView
           style={styles.container}
-          contentInset={{top: topInset}}
-          contentOffset={{y: -topInset}}
+          contentInset={{ top: topInset }}
+          contentOffset={{ y: -topInset }}
           contentContainerStyle={{
-            paddingTop: Platform.OS === 'android' ? 15 : 0
+            paddingTop: Platform.OS === 'android' ? 15 : 0,
           }}
           enableEmptySections
           onEndReached={type => this._retrieveNextPage(this.props.navigation.state.params.type)}
@@ -129,7 +130,11 @@ class MoviesList extends Component {
           dataSource={this.state.dataSource}
           renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
-          renderFooter={() => <View style={{ height: 50 }}><ProgressBar /></View>}
+          renderFooter={() => (
+            <View style={{ height: 50 }}>
+              <ProgressBar />
+            </View>
+          )}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
@@ -143,12 +148,7 @@ class MoviesList extends Component {
           }
         />
 
-        <StatusBar
-          showHideTransition="fade"
-          hidden={false}
-          barStyle="light-content"
-          animated
-        />
+        <StatusBar showHideTransition="fade" hidden={false} barStyle="light-content" animated />
       </View>
     );
   }
@@ -164,13 +164,13 @@ MoviesList.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    list: state.movies.list
+    list: state.movies.list,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(moviesActions, dispatch)
+    actions: bindActionCreators(moviesActions, dispatch),
   };
 }
 
