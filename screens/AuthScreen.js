@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, AsyncStorage, Alert } from 'react-native';
 import ProgressBar from '../components/ProgressBar';
 import { Facebook } from 'expo';
 import { SocialIcon } from 'react-native-elements';
@@ -12,25 +12,33 @@ class AuthScreen extends Component {
     buttonLoading: false,
   };
 
-  _signInAsync = async () =>{
-  let { token, type } = await Facebook.logInWithReadPermissionsAsync('1857060311217598', {
-    permissions: ['public_profile', 'email'],
-  });
-  console.log(token, type); //eslint-disable-line
-  if (type === 'cancel') {
-    console.log(type)
-    return;
-  }
-  const credential = firebase.auth.FacebookAuthProvider.credential(token);
-  firebase
-    .auth()
-    .signInWithCredential(credential)
-    .catch(error => {
-      // Handle Errors here.
-      console.log(error);
+  _signInAsync = async () => {
+    let { token, type } = await Facebook.logInWithReadPermissionsAsync('1857060311217598', {
+      permissions: ['public_profile', 'email'],
     });
-    this.props.navigation.navigate('Home')
-  }
+    console.log(token, type); //eslint-disable-line
+    if (type === 'cancel') {
+      console.log(type);
+      Alert.alert(
+      'Error',
+      'Authentication Failed. Try again.',
+      [
+        {text: 'Okay', onPress: () => {}, style: 'cancel'},
+      ],
+      { cancelable: false }
+      )
+      return;
+    }
+    const credential = firebase.auth.FacebookAuthProvider.credential(token);
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .catch(error => {
+        // Handle Errors here.
+        console.log(error);
+      });
+    this.props.navigation.navigate('Home');
+  };
 
   render() {
     return (
