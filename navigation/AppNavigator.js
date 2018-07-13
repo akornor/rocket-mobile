@@ -21,19 +21,19 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 import { Ionicons } from '@expo/vector-icons';
 
-export const MoviesStack = createStackNavigator({
+const MoviesStack = createStackNavigator({
   Movies: {
     screen: MoviesScreen,
   },
 });
 
-export const SearchStack = createStackNavigator({
+const SearchStack = createStackNavigator({
   Search: {
     screen: SearchScreen,
   },
 });
 
-export const MoviesListStack = createStackNavigator({
+const MoviesListStack = createStackNavigator({
   MoviesList: {
     screen: MoviesListScreen,
   },
@@ -69,7 +69,7 @@ const PresaleStack = createStackNavigator({
   },
 });
 
-export const Tabs = createBottomTabNavigator(
+const Tabs = createBottomTabNavigator(
   {
     Home: {
       screen: MoviesStack,
