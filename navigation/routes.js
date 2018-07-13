@@ -1,5 +1,9 @@
 import React from 'react';
-import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 import ProfileScreen from '../screens/ProfileScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MovieScreen from '../screens/MovieScreen';
@@ -135,7 +139,6 @@ export const AppStack = createStackNavigator(
   },
 );
 
-
 export default createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
@@ -144,5 +147,5 @@ export default createSwitchNavigator(
   },
   {
     initialRouteName: 'AuthLoading',
-  }
+  },
 );
