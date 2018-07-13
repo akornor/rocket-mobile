@@ -19,7 +19,7 @@ import TicketListScreen from '../screens/TicketListScreen';
 import TicketScreen from '../screens/TicketScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 const MoviesStack = createStackNavigator({
   Movies: {
@@ -77,9 +77,9 @@ const Tabs = createBottomTabNavigator(
         // tabBarLabel: 'Home',
         tabBarIcon: ({ tintColor, focused }) =>
           focused ? (
-            <Ionicons name="ios-home" size={35} />
+            <Ionicons name="md-home" size={35} />
           ) : (
-            <Ionicons name="ios-home-outline" size={35} />
+            <Ionicons name="md-home" size={35} color={tintColor} />
           ),
       },
     },
@@ -91,7 +91,7 @@ const Tabs = createBottomTabNavigator(
           focused ? (
             <Ionicons name="ios-barcode" size={35} />
           ) : (
-            <Ionicons name="ios-barcode-outline" size={35} />
+            <Ionicons name="ios-barcode-outline" size={35} color={tintColor} />
           ),
       },
     },
@@ -101,9 +101,9 @@ const Tabs = createBottomTabNavigator(
         tabBarLabel: 'Profile',
         tabBarIcon: ({ tintColor, focused }) =>
           focused ? (
-            <Ionicons name="ios-person" size={35} />
+            <FontAwesome name="user" size={35} />
           ) : (
-            <Ionicons name="ios-person-outline" size={35} />
+            <FontAwesome name="user" size={35} color={tintColor} />
           ),
       },
     },
