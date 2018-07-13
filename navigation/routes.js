@@ -23,11 +23,6 @@ export const MoviesStack = createStackNavigator({
   },
 });
 
-export const AuthStack = createStackNavigator({
-  Auth: {
-    screen: AuthScreen,
-  },
-});
 export const SearchStack = createStackNavigator({
   Search: {
     screen: SearchScreen,
@@ -145,7 +140,7 @@ export default createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: AppStack,
-    Auth: AuthStack,
+    Auth: AuthScreen,
   },
   {
     initialRouteName: 'AuthLoading',
