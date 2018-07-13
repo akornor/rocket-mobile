@@ -4,7 +4,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Platform, View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './state/store';
-import AppNavigator from './navigation/routes';
+import AppNavigator from './navigation/AppNavigator';
 
 
 export default class App extends Component {
