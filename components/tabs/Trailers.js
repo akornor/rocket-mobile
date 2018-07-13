@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity
-} from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import _ from 'lodash';
 
 import FadeIn from '@expo/react-native-fade-in-image';
@@ -15,29 +10,45 @@ const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {
   const trailers = _.take(youtubeVideos, 6); // take 6 videos instead of 10
   let computedHeight = (90 + 10) * youtubeVideos.length; // (thumbnail.height + thumbnailContainer.marginBottom)
   computedHeight += 447 + 40; // Header height + container ((20 paddingVertical) = 40)
-
-  return (
-    <View style={styles.container} onLayout={getTabHeight.bind(this, 'trailers', computedHeight)}>
-      {
-        trailers.map((item, index) => (
-          <TouchableOpacity key={index} onPress={openYoutube.bind(this, `http://youtube.com/watch?v=${item.id}`)}>
-            <View style={styles.thumbnailContainer}>
-              <FadeIn placeholderStyle={{backgroundColor: 'black'}}>
-                <Image source={{ uri: `${item.snippet.thumbnails.medium.url}` }} style={styles.thumbnail} />
-              </FadeIn>
-              <Text style={styles.title}>{item.snippet.title}</Text>
-            </View>
-          </TouchableOpacity>
-        ))
-      }
-    </View>
-  );
+  console.log(trailers);
+  if (trailers.length === 0) {
+    return <View />;
+  } else {
+    try {
+      return (
+        <View
+          style={styles.container}
+          onLayout={getTabHeight.bind(this, 'trailers', computedHeight)}
+        >
+          {trailers.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={openYoutube.bind(this, `http://youtube.com/watch?v=${item.id}`)}
+            >
+              <View style={styles.thumbnailContainer}>
+                <FadeIn placeholderStyle={{ backgroundColor: 'black' }}>
+                  <Image
+                    source={{ uri: `${item.snippet.thumbnails.medium.url}` }}
+                    style={styles.thumbnail}
+                  />
+                </FadeIn>
+                <Text style={styles.title}>{item.snippet.title}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      );
+    } catch (e) {
+      console.log(e);
+      return <View />;
+    }
+  }
 };
 
 Trailers.propTypes = {
   getTabHeight: PropTypes.func.isRequired,
   openYoutube: PropTypes.func,
-  youtubeVideos: PropTypes.array
+  youtubeVideos: PropTypes.array,
 };
 
 export default Trailers;
