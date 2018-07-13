@@ -4,7 +4,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Platform, View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './state/store';
-import { RootNavigator } from './navigation/routes';
+import AppNavigator from './navigation/routes';
 
 
 export default class App extends Component {
@@ -51,7 +51,7 @@ export default class App extends Component {
       return (
       <View style={{ flex: 1, backgroundColor: '#000' }}>
         <Provider store={store}>
-          <RootNavigator/>
+          <AppNavigator/>
         </Provider>
       </View>
     );

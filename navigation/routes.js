@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
 import ProfileScreen from '../screens/ProfileScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MovieScreen from '../screens/MovieScreen';
@@ -13,39 +13,40 @@ import MobileMoneyScreen from '../screens/MobileMoneyScreen';
 import CouponScreen from '../screens/CouponScreen';
 import TicketListScreen from '../screens/TicketListScreen';
 import TicketScreen from '../screens/TicketScreen';
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 import { Ionicons } from '@expo/vector-icons';
 
-export const MoviesStack = StackNavigator({
+export const MoviesStack = createStackNavigator({
   Movies: {
     screen: MoviesScreen,
   },
 });
 
-export const AuthStack = StackNavigator({
+export const AuthStack = createStackNavigator({
   Auth: {
     screen: AuthScreen,
   },
 });
-export const SearchStack = StackNavigator({
+export const SearchStack = createStackNavigator({
   Search: {
     screen: SearchScreen,
   },
 });
 
-export const MoviesListStack = StackNavigator({
+export const MoviesListStack = createStackNavigator({
   MoviesList: {
     screen: MoviesListScreen,
   },
 });
 
-const MovieStack = StackNavigator({
+const MovieStack = createStackNavigator({
   Movie: {
     screen: MovieScreen,
   },
 });
 
-const TicketStack = StackNavigator({
+const TicketStack = createStackNavigator({
   TicketList: {
     screen: TicketListScreen,
   },
@@ -54,7 +55,7 @@ const TicketStack = StackNavigator({
   },
 });
 
-const Presale = StackNavigator({
+const PresaleStack = createStackNavigator({
   Presale: {
     screen: PresaleScreen,
   },
@@ -69,9 +70,9 @@ const Presale = StackNavigator({
   },
 });
 
-export const Tabs = TabNavigator(
+export const Tabs = createBottomTabNavigator(
   {
-    Movies: {
+    Home: {
       screen: MoviesStack,
       navigationOptions: {
         // tabBarLabel: 'Home',
@@ -111,17 +112,12 @@ export const Tabs = TabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
-      tabBarPosition: 'bottom',
-      tabBarComponent: TabBarBottom,
     },
   },
 );
 
-export const RootNavigator = StackNavigator(
+export const AppStack = createStackNavigator(
   {
-    Auth: {
-      screen: AuthScreen,
-    },
     Tabs: {
       screen: Tabs,
     },
@@ -135,11 +131,23 @@ export const RootNavigator = StackNavigator(
       screen: MoviesListStack,
     },
     Presale: {
-      screen: Presale,
+      screen: PresaleStack,
     },
   },
   {
     mode: 'modal',
     headerMode: 'none',
   },
+);
+
+
+export default createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
 );

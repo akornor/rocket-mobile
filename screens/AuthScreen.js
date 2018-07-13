@@ -14,42 +14,38 @@ class AuthScreen extends Component {
     buttonLoading: false,
   };
 
-  navigate(routeName) {
-    const action = NavigationActions.reset({
-      index: 0,
-      key: null,
-      actions: [NavigationActions.navigate({ routeName: routeName })],
-    });
-    this.props.navigation.dispatch(action);
-  }
-  async componentDidMount() {
-    // check if user is authenticated
-    // await AsyncStorage.clear()
-    this.unSubscribe = firebase.auth().onAuthStateChanged(user => {
-      // console.log(user) //eslint-disable-line
-      if (user) {
-        this.navigate('Tabs');
-        // AsyncStorage.removeItem('token')
-      } else {
-        this.setState({ isLoading: false });
-      }
-    });
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.token) {
-      this.setState({ buttonLoading: true });
-    }
-  }
-  componentWillUnmount() {
-    this.unSubscribe();
-  }
+  // navigate(routeName) {
+  //   const action = NavigationActions.navigate({
+  //     index: 0,
+  //     key: null,
+  //     actions: [NavigationActions.navigate({ routeName: routeName })],
+  //   });
+  //   this.props.navigation.dispatch(action);
+  // }
+  // async componentDidMount() {
+  //   // check if user is authenticated
+  //   // await AsyncStorage.clear()
+  //   this.unSubscribe = firebase.auth().onAuthStateChanged(user => {
+  //     // console.log(user) //eslint-disable-line
+  //     if (user) {
+  //       this.navigate('Tabs');
+  //       // AsyncStorage.removeItem('token')
+  //     } else {
+  //       this.setState({ isLoading: false });
+  //     }
+  //   });
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.token) {
+  //     this.setState({ buttonLoading: true });
+  //   }
+  // }
+  // componentWillUnmount() {
+  //   this.unSubscribe();
+  // }
 
   render() {
-    return this.state.isLoading ? (
-      <View style={styles.container}>
-        <ProgressBar />
-      </View>
-    ) : (
+    return (
       <View style={styles.container}>
         <SocialIcon
           title="SIGN IN WITH FACEBOOK"

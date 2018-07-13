@@ -6,7 +6,7 @@ const defaultNavigationOptions = {
   // headerTransparent: true,
   // headerRight: (Platform.OS === 'ios' && <CloseButton/> ),
   headerStyle: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
     // borderBottomColor: 'rgba(255,255,255,0.1)'
   },

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationActions } from 'react-navigation';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 
 @withNavigation
 export default class CloseButton extends Component {
@@ -25,6 +26,7 @@ export default class CloseButton extends Component {
     if (this.props.onPress) {
       return this.props.onPress();
     }
-    this.props.navigation.goBack();
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
   };
 }
