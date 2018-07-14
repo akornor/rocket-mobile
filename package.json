@@ -42,8 +42,8 @@
     "type": "git",
     "url": "https://github.com/brentvatne/movieapp"
   },
-  "author": "June Domingo <june@cynder.io> & Brent Vatne <brent@getexponent.com> & Raymond Akornor <raymondakornor@gmail.com>",
+  "author": "Raymond Akornor <raymondakornor@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/brentvatne/movieapp",
+  "homepage": "https://github.com/badmon/rocket",
   "main": "node_modules/expo/AppEntry.js"
 }
