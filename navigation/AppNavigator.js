@@ -5,7 +5,6 @@ import {
   createSwitchNavigator,
 } from 'react-navigation';
 import ProfileScreen from '../screens/ProfileScreen';
-import ModalScreen from '../screens/ModalScreen';
 import MovieScreen from '../screens/MovieScreen';
 import MoviesListScreen from '../screens/MoviesListScreen';
 import MoviesScreen from '../screens/MoviesScreen';
