@@ -22,7 +22,7 @@ export default class TicketListScreen extends Component {
     />
   );
   render() {
-    const info = [
+    const data = [
       {
         id: 1,
         poster_path: '/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg',
@@ -90,10 +90,11 @@ export default class TicketListScreen extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data={info}
+          data={data}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ListEmptyComponent={() => <Text style={styles.empty}>No Tickets Available</Text>}
         />
       </View>
     );
@@ -109,5 +110,11 @@ const styles = StyleSheet.create({
   separator: {
     marginTop: 10,
     backgroundColor: '#8E8E8E',
+  },
+  empty: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 23,
+    fontWeight: '700',
   },
 });
