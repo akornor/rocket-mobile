@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import defaultNavigationOptions from '../navigation/defaultNavOptions';
-import CardThree from '../components/CardThree';
+import CardFour from '../components/CardThree';
 
 export default class TicketListScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -14,7 +14,7 @@ export default class TicketListScreen extends Component {
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
-    <CardThree
+    <CardFour
       info={item}
       viewMovie={() => {
         this.props.navigation.navigate('Ticket');
