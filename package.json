@@ -21,6 +21,7 @@
     "prop-types": "^15.5.10",
     "react": "16.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
+    "react-native-calendars": "^1.19.4",
     "react-native-config": "^0.3.1",
     "react-native-elements": "^1.0.0-beta2",
     "react-native-qrcode": "^0.2.6",

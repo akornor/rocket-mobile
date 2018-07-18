@@ -25,6 +25,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Calendar } from 'react-native-calendars';
 
 import * as moviesActions from '../state/moviesActions';
 import MovieInfoTabBar from '../components/MovieInfoTabBar';
@@ -364,4 +365,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Movie);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Movie);
