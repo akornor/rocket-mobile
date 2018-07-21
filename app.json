@@ -20,7 +20,7 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "rocket",
+            "organization": "raymond-akornor",
             "project": "rocket",
             "authToken": "09ca2a77dede4fd2be7123b5b925e8fac8c7bd43f6114f5ca47ea1ef3f71d167"
           }
