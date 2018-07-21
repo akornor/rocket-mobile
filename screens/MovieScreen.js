@@ -26,6 +26,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Calendar } from 'react-native-calendars';
+import Sentry from 'sentry-expo';
 
 import * as moviesActions from '../state/moviesActions';
 import MovieInfoTabBar from '../components/MovieInfoTabBar';
@@ -83,6 +84,7 @@ class Movie extends Component {
       if (isRefreshed && this.setState({ isRefreshing: false }));
     } catch (error) {
       console.log(error);
+      Sentry.captureException(error);
     }
   }
 
@@ -154,11 +156,13 @@ class Movie extends Component {
           })
           .catch(error => {
             console.log(error); //eslint-disable-line
+            Sentry.captureException(error);
           });
         return request;
       });
     } catch (error) {
       console.log(error);
+      Sentry.captureException(error);
     }
   }
 

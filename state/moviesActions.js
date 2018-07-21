@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Sentry from 'sentry-expo';
 import * as types from '../constants/ActionTypes';
 import { TMDB_URL, TMDB_API_KEY } from '../constants/Api';
 
@@ -17,6 +18,7 @@ export function retrieveMoviesGenres() {
       dispatch(retrieveMoviesGenresSuccess(res));
     } catch (error) {
       console.log(error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }
@@ -36,6 +38,7 @@ export function retrievePopularMovies(page) {
       dispatch(retrievePopularMoviesSuccess(res));
     } catch (error) {
       console.log('Popular', error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }
@@ -57,6 +60,7 @@ export function retrieveNowPlayingMovies(page) {
       dispatch(retrieveNowPlayingMoviesSuccess(res));
     } catch (error) {
       console.log('Now Playing', error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }
@@ -78,6 +82,7 @@ export function retrieveMoviesList(type, page) {
       dispatch(retrieveMoviesListSuccess(res));
     } catch (error) {
       console.log('Movies List', error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }
@@ -99,6 +104,7 @@ export function retrieveMoviesSearchResults(query, page) {
       dispatch(retrieveMoviesSearchResultsSuccess(res));
     } catch (error) {
       console.log('Movies Search Results', error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }
@@ -120,6 +126,7 @@ export function retrieveMovieDetails(movieId) {
       dispatch(retrieveMovieDetailsSuccess(res));
     } catch (error) {
       console.log('Movie Details', error); //eslint-disable-line
+      Sentry.captureException(error);
     }
   };
 }

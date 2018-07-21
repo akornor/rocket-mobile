@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import FadeIn from '@expo/react-native-fade-in-image';
 import styles from './styles/Trailers';
+import Sentry from 'sentry-expo';
 
 const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {
   const trailers = _.take(youtubeVideos, 6); // take 6 videos instead of 10
@@ -39,6 +40,7 @@ const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {
       );
     } catch (e) {
       console.log(e);
+      Sentry.captureException(error);
       return <View />;
     }
   }

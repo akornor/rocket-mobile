@@ -12,6 +12,7 @@ class ProfileScreen extends Component {
       this.props.navigation.navigate('Auth');
     } catch (e) {
       console.log('sign out failed', error);
+      Sentry.captureException(error);
     }
   };
 
