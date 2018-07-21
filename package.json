@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "exp start",
-    "lint": "prettier --write */*.js",
+    "lint": "prettier --write */*/*.js",
     "reinstall": "rm -rf node_modules; yarn cache clean; yarn install"
   },
   "dependencies": {

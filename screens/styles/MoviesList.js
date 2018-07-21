@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0a',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   seperator: {
     marginTop: 10,
-    backgroundColor: '#8E8E8E'
-  }
+    backgroundColor: '#8E8E8E',
+  },
 });
 
 export default styles;

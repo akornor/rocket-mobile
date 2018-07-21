@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0a',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   listHeading: {
     paddingHorizontal: 16,
@@ -21,23 +21,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 15,
-    marginTop: 30
+    marginTop: 30,
   },
   listHeadingLeft: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
   },
   listHeadingRight: {
     color: 'white',
     ...Platform.select({
       ios: {
-        fontSize: 15
+        fontSize: 15,
       },
       android: {
-        fontSize: 16
-      }
-    })
+        fontSize: 16,
+      },
+    }),
   },
 
   browseList: {
@@ -45,25 +45,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     ...Platform.select({
       ios: {
-        marginBottom: 60
+        marginBottom: 60,
       },
       android: {
-        marginBottom: 30
-      }
-    })
+        marginBottom: 30,
+      },
+    }),
   },
-
 
   browseListItem: {
     ...Platform.select({
       ios: {
-        paddingVertical: 8
+        paddingVertical: 8,
       },
       android: {
-        paddingVertical: 10
-      }
+        paddingVertical: 10,
+      },
     }),
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   browseListItemText: {
     flex: 1,
@@ -72,14 +71,14 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         fontSize: 15,
-        fontWeight: '500'
+        fontWeight: '500',
       },
       android: {
         fontSize: 16,
-        fontWeight: '100'
-      }
-    })
-  }
+        fontWeight: '100',
+      },
+    }),
+  },
 });
 
 export default styles;

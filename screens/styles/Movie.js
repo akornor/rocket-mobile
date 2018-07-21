@@ -7,39 +7,39 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         top: 15,
-        right: 15
+        right: 15,
       },
       android: {
         top: 15 + Constants.statusBarHeight,
-        left: 15
-      }
+        left: 15,
+      },
     }),
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   textStyle: {
     color: 'white',
     paddingTop: 10,
     fontSize: 12,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   underlineStyle: {
-    backgroundColor: '#EA0000'
+    backgroundColor: '#EA0000',
   },
   tabBar: {
-    backgroundColor: '#131313'
+    backgroundColor: '#131313',
   },
   contentContainer: {
     flex: 1,
-    marginTop: 157
+    marginTop: 157,
   },
   progressBar: {
     backgroundColor: '#0a0a0a',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   container: {
-    backgroundColor: '#0a0a0a'
+    backgroundColor: '#0a0a0a',
   },
   swiper: {
     // position: 'absolute',
@@ -50,12 +50,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 248,
-    position: 'absolute'
+    position: 'absolute',
   },
   imageBackdrop: {
     // flex: 1,
     height: 248,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   },
   cardContainer: {
     flex: 1,
@@ -63,53 +63,53 @@ const styles = StyleSheet.create({
     top: 200,
     right: 16,
     left: 16,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   cardImage: {
     height: 184,
     width: 135,
-    borderRadius: 3
+    borderRadius: 3,
   },
   cardDetails: {
     paddingLeft: 10,
     flex: 1,
-    paddingTop: 50
+    paddingTop: 50,
   },
   cardTitle: {
     color: 'white',
     fontSize: 19,
     fontWeight: '500',
-    paddingTop: 10
+    paddingTop: 10,
   },
   cardTagline: {
     color: 'white',
-    fontSize: 15
+    fontSize: 15,
   },
   cardGenre: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   cardGenreItem: {
     textAlign: 'left',
     fontSize: 11,
     marginRight: 5,
-    color: 'white'
+    color: 'white',
   },
   cardNumbers: {
     flexDirection: 'row',
-    marginTop: 5
+    marginTop: 5,
   },
   cardStar: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   cardStarRatings: {
     marginLeft: 5,
     fontSize: 12,
-    color: 'white'
+    color: 'white',
   },
   cardRunningHours: {
     marginLeft: 5,
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });
 
 export default styles;
