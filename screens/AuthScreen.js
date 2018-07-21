@@ -11,7 +11,36 @@ export default class AuthScreen extends Component {
     buttonLoading: false,
   };
 
-  _signInAsync = async () => {
+  _signInWithGoogleAsync = async () => {
+    try {
+      const result = await Expo.Google.logInAsync({
+        androidClientId: 'YOUR_CLIENT_ID_HERE',
+        iosClientId: '858038913404-0hdl6mcdjin08ue5ub9op3jc601pk5du.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
+
+      if (result.type === 'success') {
+        console.log(result);
+        let accessToken = result.accessToken;
+        let idToken = result.idToken;
+        const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .catch(error => {
+            // Handle Errors here.
+            console.log(error);
+          });
+        this.props.navigation.navigate('Home');
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  };
+
+  _signInWithFacebookAsync = async () => {
     try {
       let { token, type } = await Facebook.logInWithReadPermissionsAsync('1857060311217598', {
         permissions: ['public_profile', 'email'],
@@ -51,7 +80,16 @@ export default class AuthScreen extends Component {
           loading={this.state.buttonLoading}
           type="facebook"
           style={styles.button}
-          onPress={this._signInAsync}
+          onPress={this._signInWithFacebookAsync}
+          fontWeight="700"
+        />
+        <SocialIcon
+          title="SIGN IN WITH GOOGLE"
+          button
+          loading={this.state.buttonLoading}
+          type="google"
+          style={styles.button}
+          onPress={this._signInWithGoogleAsync}
           fontWeight="700"
         />
       </View>
