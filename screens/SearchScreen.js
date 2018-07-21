@@ -60,7 +60,7 @@ class Search extends Component {
     }, 500);
   }
 
-  _retrieveNextPage() {
+  async _retrieveNextPage() {
     if (this.state.currentPage !== this.props.searchResults.total_pages) {
       this.setState({
         currentPage: this.state.currentPage + 1,
@@ -74,25 +74,23 @@ class Search extends Component {
         page = this.state.currentPage + 1;
       }
 
-      axios
-        .get(
+      try {
+        res = await axios.get(
           `${TMDB_URL}/search/movie/?api_key=${TMDB_API_KEY}&query=${
             this.state.query
           }&page=${page}`,
-        )
-        .then(res => {
-          const data = this.state.searchResults.results;
-          const newData = res.data.results;
+        );
+        const data = this.state.searchResults.results;
+        const newData = res.data.results;
 
-          newData.map((item, index) => data.push(item));
+        newData.map((item, index) => data.push(item));
 
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.searchResults.results),
-          });
-        })
-        .catch(err => {
-          console.log('next page', err); // eslint-disable-line
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(this.state.searchResults.results),
         });
+      } catch (err) {
+        console.log('next page', err); // eslint-disable-line
+      }
     }
   }
 
@@ -164,4 +162,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Search);
