@@ -2,14 +2,19 @@
 import React, { Component } from 'react';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import { Platform, View } from 'react-native';
+import Sentry from 'sentry-expo';
 import { Provider } from 'react-redux';
 import store from './state/store';
 import AppNavigator from './navigation/AppNavigator';
 
+// Remove this once Sentry is correctly setup.
+Sentry.enableInExpoDevelopment = true;
+
+Sentry.config('https://e3aff86309c34bc6ae290990712ac160@sentry.io/1049742').install();
 
 export default class App extends Component {
   state = {
-    isLoadingComplete: false
+    isLoadingComplete: false,
   };
 
   _loadResourcesAsync = async () => {
@@ -46,15 +51,15 @@ export default class App extends Component {
           onError={this._handleLoadingError}
           onFinish={this._handleFinishLoading}
         />
-        );
-    }else{
+      );
+    } else {
       return (
-      <View style={{ flex: 1, backgroundColor: '#000' }}>
-        <Provider store={store}>
-          <AppNavigator/>
-        </Provider>
-      </View>
-    );
+        <View style={{ flex: 1, backgroundColor: '#000' }}>
+          <Provider store={store}>
+            <AppNavigator />
+          </Provider>
+        </View>
+      );
     }
   }
 }
