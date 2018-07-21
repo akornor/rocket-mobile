@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  ListView,
   Platform,
   RefreshControl,
   StatusBar,
@@ -9,10 +8,12 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  FlatList,
 } from 'react-native';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import { TMDB_URL, TMDB_API_KEY } from '../constants/Api';
 import * as moviesActions from '../state/moviesActions';
@@ -55,13 +56,8 @@ class MoviesList extends Component {
     this.props.actions
       .retrieveMoviesList(this.props.navigation.state.params.type, this.state.currentPage)
       .then(() => {
-        const ds = new ListView.DataSource({
-          rowHasChanged: (row1, row2) => row1 !== row2,
-        });
-        const dataSource = ds.cloneWithRows(this.props.list.results);
         this.setState({
           list: this.props.list,
-          dataSource,
           isLoading: false,
         });
       });
@@ -87,10 +83,6 @@ class MoviesList extends Component {
         const newData = res.data.results;
 
         newData.map((item, index) => data.push(item));
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(this.state.list.results),
-        });
       } catch (error) {
         console.log('next page', err); // eslint-disable-line
       }
@@ -106,6 +98,10 @@ class MoviesList extends Component {
     this._retrieveMoviesList('isRefreshed');
   }
 
+  _keyExtractor = (item, index) => item.id;
+
+  _renderItem = ({ item }) => <CardThree info={item} viewMovie={this._viewMovie} />;
+
   render() {
     // const topInset = this.props.route.getContentInsetsStyle().marginTop + 15;
     const topInset = 10;
@@ -116,7 +112,7 @@ class MoviesList extends Component {
       </View>
     ) : (
       <View style={{ flex: 1 }}>
-        <ListView
+        <FlatList
           style={styles.container}
           contentInset={{ top: topInset }}
           contentOffset={{ y: -topInset }}
@@ -126,10 +122,11 @@ class MoviesList extends Component {
           enableEmptySections
           onEndReached={type => this._retrieveNextPage(this.props.navigation.state.params.type)}
           onEndReachedThreshold={1200}
-          dataSource={this.state.dataSource}
-          renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
-          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
-          renderFooter={() => (
+          keyExtractor={this._keyExtractor}
+          data={_.uniq(this.props.list.results)}
+          renderItem={this._renderItem}
+          ItemSeparatorComponent={() => <View style={styles.seperator} />}
+          ListFooterComponent={() => (
             <View style={{ height: 50 }}>
               <ProgressBar />
             </View>
@@ -173,4 +170,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MoviesList);
