@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Platform, View, ListView, TextInput, StyleSheet } from 'react-native';
+import { Platform, View, ListView, TextInput, StyleSheet, FlatList } from 'react-native';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -97,17 +97,23 @@ class Search extends Component {
   _viewMovie(movieId) {
     this.props.navigation.navigate('Movie', { movieId });
   }
+  _keyExtractor = ({ item, index }) => index + 1;
 
+  _renderItem = ({ item }) => <CardThree info={item} viewMovie={this._viewMovie} />;
   _renderListView() {
     if (this.state.query) {
       listView = (
-        <ListView
+        <FlatList
           enableEmptySections
           onEndReached={type => this._retrieveNextPage()}
           onEndReachedThreshold={1200}
           dataSource={this.state.dataSource}
-          renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
+          data={this.props.searchResults.results}
+          // keyExtractor={this._keyExtractor}
+          // renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
+          renderItem={this._renderItem}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
+          ItemSeparatorComponent={() => <View style={styles.seperator} />}
         />
       );
     } else {
