@@ -4,7 +4,7 @@ import ProgressBar from '../components/ProgressBar';
 import { Facebook } from 'expo';
 import { SocialIcon } from 'react-native-elements';
 import firebase from '../firebase';
-import Sentry from 'sentry-expo';
+import { logErrorRemotely } from '../utils';
 
 export default class AuthScreen extends Component {
   state = {
@@ -28,12 +28,12 @@ export default class AuthScreen extends Component {
           this.props.navigation.navigate('Home');
         } catch (e) {
           console.log(e);
-          Sentry.captureException(e);
+          logErrorRemotely(e);
         }
       }
     } catch (e) {
       console.log(e);
-      Sentry.captureException(e);
+      logErrorRemotely(e);
     }
   };
 
@@ -54,11 +54,11 @@ export default class AuthScreen extends Component {
         this.props.navigation.navigate('Home');
       } catch (e) {
         console.log(e);
-        Sentry.captureException(error);
+        logErrorRemotely(error);
       }
     } catch (e) {
       console.log(e);
-      Sentry.captureException(error);
+      logErrorRemotely(error);
       Alert.alert(
         'Error',
         'Authentication Failed. Try again.',

@@ -12,7 +12,7 @@ import styles from './styles/Search';
 import CloseButton from '../navigation/CloseButton';
 import { SearchBar } from 'react-native-elements';
 import defaultNavigationOptions from '../navigation/defaultNavOptions';
-import Sentry from 'sentry-expo';
+import { logErrorRemotely } from '../utils';
 
 class Search extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -91,7 +91,7 @@ class Search extends Component {
         });
       } catch (err) {
         console.log('next page', err); // eslint-disable-line
-        Sentry.captureException(error);
+        logErrorRemotely(error);
       }
     }
   }

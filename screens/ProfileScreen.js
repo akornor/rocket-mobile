@@ -3,6 +3,7 @@ import { ScrollView, AsyncStorage, Alert, StyleSheet } from 'react-native';
 import { Tile, List, ListItem, Button, Avatar } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import firebase from '../firebase';
+import { logErrorRemotely } from '../utils';
 
 class ProfileScreen extends Component {
   _signOut = async () => {
@@ -12,7 +13,7 @@ class ProfileScreen extends Component {
       this.props.navigation.navigate('Auth');
     } catch (e) {
       console.log('sign out failed', error);
-      Sentry.captureException(error);
+      logErrorRemotely(error);
     }
   };
 
