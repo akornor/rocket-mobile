@@ -20,23 +20,17 @@ export default class AuthScreen extends Component {
       });
 
       if (result.type === 'success') {
-        console.log(result);
-        let accessToken = result.accessToken;
-        let idToken = result.idToken;
+        let { idToken, accessToken } = result;
         const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
-        firebase
-          .auth()
-          .signInWithCredential(credential)
-          .catch(error => {
-            // Handle Errors here.
-            console.log(error);
-          });
-        this.props.navigation.navigate('Home');
-      } else {
-        return { cancelled: true };
+        try {
+          firebase.auth().signInWithCredential(credential);
+          this.props.navigation.navigate('Home');
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch (e) {
-      return { error: true };
+      console.log(e);
     }
   };
 
@@ -52,14 +46,12 @@ export default class AuthScreen extends Component {
       }
 
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
-      firebase
-        .auth()
-        .signInWithCredential(credential)
-        .catch(error => {
-          // Handle Errors here.
-          console.log(error);
-        });
-      this.props.navigation.navigate('Home');
+      try {
+        firebase.auth().signInWithCredential(credential);
+        this.props.navigation.navigate('Home');
+      } catch (e) {
+        console.log(e);
+      }
     } catch (e) {
       console.log(e);
       Alert.alert(
