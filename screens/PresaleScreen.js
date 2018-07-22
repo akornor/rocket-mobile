@@ -61,7 +61,7 @@ export default class PresaleScreen extends Component {
               justifyContent: 'center',
             }}
           >
-            GHS {20.0 * this.state.count}
+            GHS {20.0 * this.state.counter}
           </Text>
           <View style={{ flexDirection: 'row', alignContent: 'flex-end' }}>
             <Button
