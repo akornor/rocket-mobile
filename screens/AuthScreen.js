@@ -27,12 +27,10 @@ export default class AuthScreen extends Component {
           firebase.auth().signInWithCredential(credential);
           this.props.navigation.navigate('Home');
         } catch (e) {
-          console.log(e);
           logErrorRemotely(e);
         }
       }
     } catch (e) {
-      console.log(e);
       logErrorRemotely(e);
     }
   };

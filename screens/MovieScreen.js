@@ -83,7 +83,6 @@ class Movie extends Component {
         });
       if (isRefreshed && this.setState({ isRefreshing: false }));
     } catch (error) {
-      console.log(error);
       logErrorRemotely(error);
     }
   }
@@ -155,13 +154,11 @@ class Movie extends Component {
             data.push(res.data.items[0]);
           })
           .catch(error => {
-            console.log(error); //eslint-disable-line
             logErrorRemotely(error);
           });
         return request;
       });
     } catch (error) {
-      console.log(error);
       logErrorRemotely(error);
     }
   }

@@ -17,7 +17,6 @@ export function retrieveMoviesGenres() {
       let res = await axios.get(`${TMDB_URL}/genre/movie/list?api_key=${TMDB_API_KEY}`);
       dispatch(retrieveMoviesGenresSuccess(res));
     } catch (error) {
-      console.log(error); //eslint-disable-line
       logErrorRemotely(error);
     }
   };
@@ -37,8 +36,7 @@ export function retrievePopularMovies(page) {
       let res = await axios.get(`${TMDB_URL}/movie/popular?api_key=${TMDB_API_KEY}&page=${page}`);
       dispatch(retrievePopularMoviesSuccess(res));
     } catch (error) {
-      console.log('Popular', error); //eslint-disable-line
-      logErrorRemotely(error);
+      logErrorRemotely(error, 'Popular');
     }
   };
 }
@@ -59,7 +57,6 @@ export function retrieveNowPlayingMovies(page) {
       );
       dispatch(retrieveNowPlayingMoviesSuccess(res));
     } catch (error) {
-      console.log('Now Playing', error); //eslint-disable-line
       logErrorRemotely(error);
     }
   };
@@ -81,7 +78,6 @@ export function retrieveMoviesList(type, page) {
       );
       dispatch(retrieveMoviesListSuccess(res));
     } catch (error) {
-      console.log('Movies List', error); //eslint-disable-line
       logErrorRemotely(error);
     }
   };
@@ -103,8 +99,7 @@ export function retrieveMoviesSearchResults(query, page) {
       );
       dispatch(retrieveMoviesSearchResultsSuccess(res));
     } catch (error) {
-      console.log('Movies Search Results', error); //eslint-disable-line
-      logErrorRemotely(error);
+      logErrorRemotely(error, 'Movies Search Results');
     }
   };
 }
@@ -125,8 +120,7 @@ export function retrieveMovieDetails(movieId) {
       );
       dispatch(retrieveMovieDetailsSuccess(res));
     } catch (error) {
-      console.log('Movie Details', error); //eslint-disable-line
-      logErrorRemotely(error);
+      logErrorRemotely(error, 'Movie Details');
     }
   };
 }

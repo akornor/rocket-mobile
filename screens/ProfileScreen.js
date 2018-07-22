@@ -12,8 +12,7 @@ class ProfileScreen extends Component {
       await AsyncStorage.clear();
       this.props.navigation.navigate('Auth');
     } catch (e) {
-      console.log('sign out failed', error);
-      logErrorRemotely(error);
+      logErrorRemotely(error, 'sign out failed');
     }
   };
 
