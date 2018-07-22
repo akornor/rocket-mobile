@@ -16,7 +16,7 @@ export default class PresaleScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { count: 0 };
+    this.state = { counter: 0 };
   }
 
   _onPress = () => {
@@ -25,21 +25,22 @@ export default class PresaleScreen extends Component {
 
   _increment = () => {
     this.setState((prevState, props) => {
-      return { count: prevState.count + 1 };
+      return { counter: prevState.counter + 1 };
     });
   };
   _decrement = () => {
     this.setState((prevState, props) => {
-      return { count: prevState.count - 1 };
+      return { counter: prevState.counter - 1 };
     });
   };
   render() {
     // const {info} = this.props.navigation.state.params
     // console.log(info.release_date, info.vote_average, info.overview, info.poster_path)
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.cardContainer}>
-          <CardThree info={this.props.navigation.state.params.info} viewMovie={id => {}} />
+          <CardThree info={navigation.state.params.info} viewMovie={id => {}} />
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.textStyle}> HOW MANY TICKETS? </Text>
