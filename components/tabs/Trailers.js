@@ -39,7 +39,6 @@ const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {
         </View>
       );
     } catch (e) {
-      console.log(e);
       logErrorRemotely(error);
       return <View />;
     }

@@ -37,10 +37,11 @@ export default class PresaleScreen extends Component {
     // const {info} = this.props.navigation.state.params
     // console.log(info.release_date, info.vote_average, info.overview, info.poster_path)
     const { navigation } = this.props;
+    const info = navigation.getParam('info');
     return (
       <View style={styles.container}>
         <View style={styles.cardContainer}>
-          <CardThree info={navigation.state.params.info} viewMovie={id => {}} />
+          <CardThree info={info} viewMovie={id => {}} />
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.textStyle}> HOW MANY TICKETS? </Text>
@@ -66,7 +67,7 @@ export default class PresaleScreen extends Component {
           <View style={{ flexDirection: 'row', alignContent: 'flex-end' }}>
             <Button
               containerStyle={{ width: 50 }}
-              disabled={this.state.count <= 0}
+              disabled={this.state.counter <= 0}
               title="-"
               onPress={this._decrement}
               titleStyle={styles.buttonTitleStyle}
@@ -81,11 +82,11 @@ export default class PresaleScreen extends Component {
                 marginHorizontal: 20,
               }}
             >
-              {this.state.count}
+              {this.state.counter}
             </Text>
             <Button
               containerStyle={{ width: 50 }}
-              disabled={this.state.count >= 10}
+              disabled={this.state.counter >= 10}
               buttonStyle={styles.buttonStyle}
               title="+"
               titleStyle={styles.buttonTitleStyle}
