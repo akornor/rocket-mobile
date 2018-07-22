@@ -77,7 +77,7 @@ class Movie extends Component {
   _retrieveDetails(isRefreshed) {
     try {
       this.props.actions
-        .retrieveMovieDetails(this.props.navigation.state.params.movieId)
+        .retrieveMovieDetails(this.props.navigation.getParam('movieId'))
         .then(() => {
           this._retrieveYoutubeDetails();
         });
@@ -88,7 +88,7 @@ class Movie extends Component {
   }
 
   _retrieveSimilarMovies() {
-    this.props.actions.retrieveSimilarMovies(this.props.navigation.state.params.movieId, 1);
+    this.props.actions.retrieveSimilarMovies(this.props.navigation.getParam('movieId'), 1);
   }
 
   _onRefresh() {
@@ -209,7 +209,7 @@ class Movie extends Component {
 
   render() {
     const iconStar = <Icon name="md-star" size={16} color="#F5B642" />;
-    const { details } = this.props;
+    const { details, navigation } = this.props;
     const info = details;
 
     let height;
@@ -323,7 +323,7 @@ class Movie extends Component {
               >
                 <MovieTimes
                   tabLabel="MOVIE TIMES"
-                  movieId={this.props.navigation.state.params.movieId}
+                  movieId={navigation.getParam('movieId')}
                   info={info}
                 />
                 <Info tabLabel="INFO" info={info} />

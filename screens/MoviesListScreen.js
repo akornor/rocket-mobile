@@ -26,7 +26,7 @@ import defaultNavigationOptions from '../navigation/defaultNavOptions';
 class MoviesList extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.title,
+      title: navigation.getParam('title'),
       headerRight: Platform.OS === 'ios' && <CloseButton />,
       ...defaultNavigationOptions,
     };
@@ -54,7 +54,7 @@ class MoviesList extends Component {
 
   _retrieveMoviesList(isRefreshed) {
     this.props.actions
-      .retrieveMoviesList(this.props.navigation.state.params.type, this.state.currentPage)
+      .retrieveMoviesList(this.props.navigation.getParam('type'), this.state.currentPage)
       .then(() => {
         this.setState({
           list: this.props.list,
@@ -104,6 +104,7 @@ class MoviesList extends Component {
 
   render() {
     // const topInset = this.props.route.getContentInsetsStyle().marginTop + 15;
+    const { navigation } = this.props;
     const topInset = 10;
 
     return this.state.isLoading ? (
@@ -120,7 +121,7 @@ class MoviesList extends Component {
             paddingTop: Platform.OS === 'android' ? 15 : 0,
           }}
           enableEmptySections
-          onEndReached={type => this._retrieveNextPage(this.props.navigation.state.params.type)}
+          onEndReached={type => this._retrieveNextPage(navigation.getParam('type'))}
           onEndReachedThreshold={1200}
           keyExtractor={this._keyExtractor}
           data={_.uniq(this.props.list.results)}

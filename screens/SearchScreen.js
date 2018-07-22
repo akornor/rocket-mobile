@@ -17,7 +17,7 @@ import { logErrorRemotely } from '../utils';
 class Search extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.state.params.title,
+      title: navigation.getParam('title'),
       // headerTransparent: true,
       headerRight: Platform.OS === 'ios' && <CloseButton />,
       ...defaultNavigationOptions,

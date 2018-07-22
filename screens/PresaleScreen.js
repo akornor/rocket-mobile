@@ -34,8 +34,6 @@ export default class PresaleScreen extends Component {
     });
   };
   render() {
-    // const {info} = this.props.navigation.state.params
-    // console.log(info.release_date, info.vote_average, info.overview, info.poster_path)
     const { navigation } = this.props;
     const info = navigation.getParam('info');
     return (
