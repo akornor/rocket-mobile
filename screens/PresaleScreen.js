@@ -24,13 +24,13 @@ export default class PresaleScreen extends Component {
   };
 
   _increment = () => {
-    this.setState({
-      count: this.state.count + 1,
+    this.setState((prevState, props) => {
+      return { count: prevState.count + 1 };
     });
   };
   _decrement = () => {
-    this.setState({
-      count: this.state.count - 1,
+    this.setState((prevState, props) => {
+      return { count: prevState.count - 1 };
     });
   };
   render() {
