@@ -91,7 +91,7 @@ class Search extends Component {
         });
       } catch (err) {
         console.log('next page', err); // eslint-disable-line
-        logErrorRemotely(error);
+        logErrorRemotely(err);
       }
     }
   }
@@ -99,19 +99,19 @@ class Search extends Component {
   _viewMovie(movieId) {
     this.props.navigation.navigate('Movie', { movieId });
   }
-  _keyExtractor = ({ item, index }) => index + 1;
+  _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => <CardThree info={item} viewMovie={this._viewMovie} />;
-  _renderListView() {
+  _renderFlatList() {
     if (this.state.query) {
       listView = (
         <FlatList
           enableEmptySections
           onEndReached={type => this._retrieveNextPage()}
           onEndReachedThreshold={1200}
-          dataSource={this.state.dataSource}
+          // dataSource={this.state.dataSource}
           data={this.props.searchResults.results}
-          // keyExtractor={this._keyExtractor}
+          keyExtractor={this._keyExtractor}
           // renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
           renderItem={this._renderItem}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
@@ -146,7 +146,7 @@ class Search extends Component {
             underlineColorAndroid="transparent"
           />
         </View>
-        {!this.state.isLoading && this._renderListView()}
+        {!this.state.isLoading && this._renderFlatList()}
       </View>
     );
   }
